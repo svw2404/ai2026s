@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>D3.js scatter plot with hover</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <style>
+        #tooltip {
+            position: absolute;
+            text-align: center;
+            width: 120px;       
+            height: auto;      
+            padding: 8px;
+            font: 12px sans-serif;
+            background: white;
+            border: 0px;
+            border-radius: 8px;
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        svg {
+            display: block;
+        }
+
+        .axis-label {
+            fill: #000;
+            font-size: 12px;
+            font-family: sans-serif;
+        }
+    </style>
+</head>
+<body>
+    
+    <script>
+        // è¨­å®š SVG å¤§å°
+        var margin = {top: 20, right: 30, bottom: 50, left: 60},
+            width = 1080 - margin.left - margin.right,
+            height = 580 - margin.top - margin.bottom;
+
+        // åŠ å…¥ svg åˆ° body
+        d3.select("body").style("margin", "0");
+
+        var svg = d3.select("body").append("svg")
+            .attr("width", "100%")  // ä½¿ç”¨ç™¾åˆ†æ¯”è®“å®ƒå¡«æ»¿ iframe
+            .attr("viewBox", "0 0 " + (width + margin.left + margin.right) + " " + (height + margin.top + margin.bottom))
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        
+        var tooltip = d3.select("body").append("div")
+            .attr("id", "tooltip")
+            .style("opacity", 0);
+
+        // è¨­å®šç‚ºè‡ªå·±å­—çš„æª”å
+        var myImg = "113590032.png";
+        
+        d3.csv("results.csv").then(function(data) {
+
+            // è¨­å®šxè»¸æ¯”ä¾‹å°º
+            var x = d3.scaleLinear()
+                .domain([0.3, 1]) // ssim
+                .range([ 0, width ]);
+
+            // hover.html
+            svg.append("g")
+                .attr("transform", "translate(0," + height + ")")
+                .call(d3.axisBottom(x))
+                .append("text")
+                .attr("class", "axis-label")
+                .attr("x", width) 
+                .attr("y", -40) // æ”¹ç‚ºæ­£ 40ï¼Œè®“ SSIM å­—æ¨£å‡ºç¾åœ¨è»¸ç·šä¸‹æ–¹
+                .style("text-anchor", "end")
+                .text("SSIM");
+
+            // è¨­å®šyè»¸æ¯”ä¾‹å°º
+            var y = d3.scaleLinear()
+                .domain([0, 0.7]) // lpips
+                .range([ height, 0]);
+
+
+            // åŠ å…¥Yè»¸ä»¥åŠæ¨™ç±¤
+            svg.append("g")
+                .call(d3.axisLeft(y))
+            // åŠ å…¥yè»¸æ¨™ç±¤
+                .append("text")
+                .attr("class", "axis-label")
+                .attr("transform", "rotate(-90)") // æ—‹è½‰æ¨™ç±¤
+                .attr("y", 30) // åœ¨Yè»¸ç·šå·¦æ–¹ä¸€é»žçš„ä½ç½®
+                .attr("dy", ".71em") // å¾®èª¿ä½ç½®
+                .style("text-anchor", "end") // æ–‡æœ¬å°é½Šæ–¹å¼
+                .text("LPIPS");
+
+            var filteredData = data.filter(function(d) {
+                return d.SSIM >= 0 && d.SSIM <=1 && d.LPIPS >=0 && d.LPIPS <= 1;
+            });
+
+            var node = svg.append('g')
+                .selectAll("g.node")
+                .data(filteredData)
+                .enter()
+                .append("g")
+                .attr("class", "node")
+                .attr("transform", function(d) { return "translate(" + x(d.SSIM) + "," + y(d.LPIPS) + ")"; })
+                .style("cursor", "pointer");
+
+            // ç•«æ­£æ–¹å½¢
+            var rectSize = 36; 
+            node.append("rect")
+                .attr("width", rectSize)
+                .attr("height", rectSize)
+                .attr("x", -rectSize / 2) // å¾€å·¦å¹³ç§»ä¸€åŠä»¥ç½®ä¸­
+                .attr("y", -rectSize / 2) // å¾€ä¸Šå¹³ç§»ä¸€åŠä»¥ç½®ä¸­
+                .style("fill", "rgba(0,0,0,0)")  // è¨­å®šç‚ºé€æ˜Žå¡«è‰²ï¼Œç¢ºä¿èƒ½è§¸ç™¼æ»‘é¼ äº‹ä»¶
+                .style("stroke", function(d) {
+                    // è¨­å®šå¤–æ¡†é¡è‰²è¦å‰‡ï¼šç¬¦åˆæ¢ä»¶ç‚ºç´…æ¡†ï¼Œä¸ç¬¦åˆç‚ºç¶ æ¡†
+                    return d.Student === myImg ? "#ff0000" : "#187C19"; 
+                })
+                .style("stroke-width", "2px"); // è¨­å®šå¤–æ¡†ç²—åº¦
+
+            // åŠ å…¥åœ–ç‰‡
+            node.append("image")
+                .attr("xlink:href", function(d) { 
+                    return "img/" + d.Student; 
+                }) 
+                .attr("x", -17)
+                .attr("y", -17) 
+                .attr("width", 34) 
+                .attr("height", 34)
+                .style("pointer-events", "none");
+
+            // Tooltip ç¶å®šåˆ°æ•´å€‹ node ç¾¤çµ„ä¸Š
+            node.on("mouseover", function(d) {
+                    tooltip.transition()
+                        .duration(200)
+                        .style("opacity", .9);
+                    
+                    tooltip.html(
+                        "<div style='margin-bottom:5px; font-weight:bold; font-size: 1.1em;'>" + d.Student + "</div>" +
+                        "<img src='img/" + d.Student + "' alt='Handwriting' style='width: 100%; height: auto; border: 1px solid #ccc;'>"
+                    )
+                    var tooltipNode = document.getElementById("tooltip");
+                    var tooltipWidth = tooltipNode.offsetWidth;
+                    var tooltipHeight = tooltipNode.offsetHeight;
+
+                    tooltip
+                        .style("left", (d3.event.pageX - tooltipWidth - 8) + "px") // å¾€å·¦ä½ç§»
+                        .style("top", (d3.event.pageY - tooltipHeight - 8) + "px"); // å¾€ä¸Šä½ç§»
+                })
+                .on("mouseout", function(d) {
+                    tooltip.transition()
+                        .duration(500)
+                        .style("opacity", 0);
+                });
+            
+        });
+
+    </script>
+</body>
+</html>
