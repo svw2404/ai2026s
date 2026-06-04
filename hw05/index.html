@@ -1,5 +1,4 @@
-<!doctype html>
-
+﻿<!doctype html>
 <html lang="zh-Hant-TW">
 <head>
 <!-- Required meta tags -->
@@ -7,17 +6,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- D3, jquery -->
-
 <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" charset="utf-8"></script>
 
 <!-- Bootstrap CSS -->
-
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
 
-<title>作業五 - 113590032</title>
+<title>作業五</title>
 <link rel="icon" href="../hw00/favicon.svg"/>
 
 <style type="text/css">
@@ -31,17 +27,19 @@
   table {
       border-collapse: collapse;
       border: 2px solid white;
-      font-size: 16pt;
+      font-size:  16pt;
       margin-left: auto;
       margin-right: auto;
   }
 
-  td, th {
+  td,
+  th {
       border: 1px solid white;
       padding: 2px 8px;
   }
 
-  .flipswitch {
+  .flipswitch
+  {
       position: relative;
       background: white;
       width: 120px;
@@ -56,8 +54,8 @@
       cursor:pointer;
       border:1px solid #ddd;
   }
-
-  .flipswitch:after {
+  .flipswitch:after
+  {
       position:absolute;
       top:5%;
       display:block; 
@@ -72,13 +70,13 @@
       border:#888 1px solid;
       border-radius:3px;
   }
-
-  .flipswitch:after {
+  .flipswitch:after
+  {
       left:2%;
       content: "未完成";
   }
-
-  .flipswitch:checked:after {
+  .flipswitch:checked:after
+  {
       left:53%;
       content: "完成";
   }
@@ -90,7 +88,7 @@
   }
 
   .container-fluid {
-    width: 90%;
+    width:  90%;
   }
 
   .hw12 {
@@ -107,12 +105,12 @@
   }
 
   .twenty a {
-    color: yellow;
+    color:  yellow;
   }
 
   .twenty a:hover {
     color: #f9eced;
-    font-size: 16pt;
+    font-size:  16pt;
   }
 
   .twenty:hover {
@@ -129,16 +127,10 @@
     margin-bottom: 36px;
   }
 
-  img {
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-
   p {
     word-break: break-word;
   }
 </style>
-
 </head>
 
 <body>
@@ -146,7 +138,6 @@
 <div class="container-fluid">
 
   <!-- ---------------------------------------------- -->
-
   <div class="row hw12 toprow">
     <div class="col twenty"><a href="../hw00/index.html">00</a></div>
     <div class="col twenty"><a href="../hw01/index.html">01</a></div>
@@ -158,27 +149,20 @@
   </div>
 
   <!-- ------------------------------------------------>
-
   <div class="row hw12">
     <div class="col-md-12 twenty">
-      <h1>作業 05 - Stable Diffusion / ComfyUI</h1>
-      <h3>學號：113590032</h3>
+      <h1>作業 05</h1>
     </div>
   </div>
 
   <!-- ------------------------------------------------>
-
   <div class="row hw12">
     <div class="col-md-12 twenty">
-      <h2>心得</h2>
-      <p>
-        這次作業讓我第一次比較完整地使用 ComfyUI 來進行 Stable Diffusion 文生圖。剛開始我以為只要下載模型就能直接生成圖片，但實際操作後才發現，Checkpoint、LoRA、Prompt、Negative Prompt、KSampler、VAE Decode 和 Save Image 之間的節點連接都很重要。過程中我也遇到 GPU 記憶體和 NVIDIA driver 的問題，讓我理解到生成解析度、steps、batch size 和 workflow 複雜度都會影響電腦穩定性。最後成功生成芙莉蓮圖片後，我覺得 ComfyUI 的節點式設計雖然一開始比較複雜，但可以清楚看到整個 AI 圖像生成流程，也更容易調整細節。這次作業讓我更了解文生圖模型的實際使用方式，也學到如何處理模型下載、LoRA 使用和工作流調整。
-      </p>
+      Before doing this homework, I only had a basic idea of image generation tools, and I was more familiar with StableDiffusion-WebUI. This assignment helped me understand ComfyUI in a much more practical way. At first, the node-based interface looked confusing, but after working with it I realized that it clearly shows how Checkpoint, LoRA, positive prompt, negative prompt, KSampler, VAE Decode, and Save Image are connected. I also learned that image generation is not only about writing prompts, but also about choosing the correct model, adjusting parameters, and managing GPU limitations. During the process, I had issues with VRAM and the NVIDIA driver, so I understood why resolution, steps, batch size, and workflow complexity matter. In the end, successfully generating the Frieren image made me feel more confident using ComfyUI and understanding the Stable Diffusion workflow.
     </div>
   </div>
 
   <!-- ------------------------------------------------>
-
   <div class="row hw12">
     <div class="col-md-12 twenty">
       <table>
@@ -188,107 +172,81 @@
           <th>配分</th>
           <th>分項描述</th>
         </tr>
-
-```
-    <tr>
-      <td rowspan="4" id="myTotal"></td>
-      <td><input type="checkbox" class="flipswitch" id="myCheckbox1" checked></td>
-      <td id='m1'>4</td>
-      <td>Simple baseline - 完成 ComfyUI 建置</td>
-    </tr>
-
-    <tr>
-      <td><input type="checkbox" class="flipswitch" id="myCheckbox2" checked></td>
-      <td id='m2'>4</td>
-      <td>Medium baseline - 完成芙莉蓮 Checkpoint / LoRA 文生圖</td>
-    </tr>
-
-    <tr>
-      <td><input type="checkbox" class="flipswitch" id="myCheckbox3"></td>
-      <td id='m3'>2</td>
-      <td>Strong baseline - 替換 Checkpoint / LoRA 完成辛梅爾文生圖（尚未完成）</td>
-    </tr>
-
-    <tr>
-      <td><input type="checkbox" class="flipswitch" id="myCheckbox4"></td>
-      <td id='m4'>-10</td>
-      <td>沒有寫 100 字心得</td>
-    </tr>
-  </table>
-</div>
-```
-
+        <tr>
+          <td rowspan="4" id="myTotal"></td>
+          <td><input type="checkbox" class="flipswitch" id="myCheckbox1" checked></td>
+          <td id='m1'>4</td>
+          <td>Simple baseline - 完成ComfyUI建置</td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" class="flipswitch" id="myCheckbox2" checked></td>
+          <td id='m2'>4</td>
+          <td>Medium baseline - 完成芙莉蓮文生圖</td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" class="flipswitch" id="myCheckbox3"></td>
+          <td id='m3'>2</td>
+          <td>Strong baseline - 替換模型完成辛梅爾文生圖</td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" class="flipswitch" id="myCheckbox4"></td>
+          <td id='m4'>-10</td>
+          <td>沒有寫100字心得</td>
+        </tr>
+      </table>
+    </div>
   </div>
 
   <!-- ------------------------------------------------>
-
   <div class="row hw12">
     <div class="col-md-12 twenty" style="background-color:#00AC48;">    
       <figure>
-        <figcaption>ComfyUI + 完整工作流</figcaption>
+        <figcaption>ComfyUI+工作流</figcaption>
         <img src="ComfyUI_screenshot.png" width="100%"/>
       </figure>
     </div>
   </div>
 
   <!-- ------------------------------------------------>
-
   <div class="row hw12">
     <div class="col-md-12 twenty" style="background-color:#0080ff;">    
       <figure>
-        <figcaption>ComfyUI 工作流細節截圖</figcaption>
+        <figcaption>ComfyUI工作流細節</figcaption>
         <img src="ComfyUI_readable_workflow.png" width="100%"/>
       </figure>
     </div>
   </div>
 
   <!-- ------------------------------------------------>
-
   <div class="row hw12">
     <div class="col-md-12 twenty" style="background-color:#ff0000;"> 
       <figure>
-        <figcaption>Medium baseline - 完成芙莉蓮 Checkpoint / LoRA 文生圖</figcaption>
+        <figcaption>完成芙莉蓮Checkpoint、LoRA文生圖</figcaption>
+        <a href="https://civitai.com/models/820208/obsession-illustrious-xl">Checkpoint連結</a>
+        <br>
+        <a href="https://civitai.com/models/1204563/ma1ma1helmes-or-shiiros-styles-or-niji?modelVersionId=1356500">LoRA連結</a>
 
-```
-    <p>
-      <a href="https://civitai.com/models/820208/obsession-illustrious-xl">
-        Checkpoint：Obsession Illustrious-XL
-      </a>
-    </p>
+        <p>Checkpoint：obsession_illustrious_xl.safetensors</p>
+        <p>LoRA：ma1ma1helmes_lora.safetensors</p>
+        <p>Positive: frieren, sousou no frieren, silver hair, elf ears, green eyes, white mage robe, fantasy forest background, soft lighting, anime style, high quality, detailed face, beautiful composition</p>
+        <p>Negative: low quality, blurry, bad anatomy, extra fingers, missing fingers, distorted face, bad hands, watermark, text, logo</p>
 
-    <p>
-      <a href="https://civitai.com/models/1204563/ma1ma1helmes-or-shiiros-styles-or-niji?modelVersionId=1356500">
-        LoRA：ma1ma1helmes
-      </a>
-    </p>
-
-    <p>使用模型：obsession_illustrious_xl.safetensors</p>
-    <p>使用 LoRA：ma1ma1helmes_lora.safetensors</p>
-
-    <p>
-      Positive Prompt:
-      frieren, sousou no frieren, silver hair, elf ears, green eyes, white mage robe, fantasy forest background, soft lighting, anime style, high quality, detailed face, beautiful composition
-    </p>
-
-    <p>
-      Negative Prompt:
-      low quality, blurry, bad anatomy, extra fingers, missing fingers, distorted face, bad hands, watermark, text, logo
-    </p>
-
-    <img src="ComfyUI_0.png" width="100%"/>
-  </figure>
-</div>
-```
-
+        <img src="ComfyUI_0.png" width="100%"/>
+      </figure>
+    </div>
   </div>
 
   <!-- ------------------------------------------------>
-
   <div class="row hw12 bottomrow">
     <div class="col-md-12 twenty" style="background-color:#7030a0;">    
       <figure>
-        <figcaption>Strong baseline - 替換 Checkpoint / LoRA 完成辛梅爾文生圖</figcaption>
-        <p>此部分尚未完成。完成後可將圖片命名為 ComfyUI_1.png，並將上方 Strong baseline 勾選。</p>
+        <figcaption>替換Checkpoint、LoRA完成辛梅爾文生圖</figcaption>
+        <a href="https://civitai.com/models/820208/obsession-illustrious-xl">Checkpoint連結</a>
+        <br>
+        <a href="https://civitai.com/models/1204563/ma1ma1helmes-or-shiiros-styles-or-niji?modelVersionId=1356500">LoRA連結1</a>
+        <br>
+        <a href="https://civitai.com/models/1201355/r754496-or-shiiros-styles-or-niji">LoRA連結2</a>
+        <p>此部分尚未完成。完成後將圖片命名為 ComfyUI_1.png，並將上方 Strong baseline 打勾。</p>
       </figure>
     </div>
   </div>
@@ -311,6 +269,7 @@
   update();
   
   function update(){
+
     var score = 0;
 
     if (d3.select("#myCheckbox1").property("checked")){
