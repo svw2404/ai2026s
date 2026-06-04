@@ -137,7 +137,6 @@
 
 <div class="container-fluid">
 
-  <!-- ---------------------------------------------- -->
   <div class="row hw12 toprow">
     <div class="col twenty"><a href="../hw00/index.html">00</a></div>
     <div class="col twenty"><a href="../hw01/index.html">01</a></div>
@@ -148,21 +147,18 @@
     <div class="col twenty"><a href="../hw06/index.html">06</a></div>
   </div>
 
-  <!-- ------------------------------------------------>
   <div class="row hw12">
     <div class="col-md-12 twenty">
       <h1>作業 05</h1>
     </div>
   </div>
 
-  <!-- ------------------------------------------------>
   <div class="row hw12">
     <div class="col-md-12 twenty">
-      Before doing this homework, I only had a basic idea of image generation tools, and I was more familiar with StableDiffusion-WebUI. This assignment helped me understand ComfyUI in a much more practical way. At first, the node-based interface looked confusing, but after working with it I realized that it clearly shows how Checkpoint, LoRA, positive prompt, negative prompt, KSampler, VAE Decode, and Save Image are connected. I also learned that image generation is not only about writing prompts, but also about choosing the correct model, adjusting parameters, and managing GPU limitations. During the process, I had issues with VRAM and the NVIDIA driver, so I understood why resolution, steps, batch size, and workflow complexity matter. In the end, successfully generating the Frieren image made me feel more confident using ComfyUI and understanding the Stable Diffusion workflow.
+      Before doing this homework, I only had a basic idea of image generation tools, and I was more familiar with StableDiffusion-WebUI. This assignment helped me understand ComfyUI in a much more practical way. At first, the node-based interface looked confusing, but after working with it I realized that it clearly shows how Checkpoint, LoRA, positive prompt, negative prompt, KSampler, VAE Decode, and Save Image are connected. I also learned that image generation is not only about writing prompts, but also about choosing the correct model, adjusting parameters, and managing GPU limitations. During the process, I had issues with VRAM and the NVIDIA driver, so I understood why resolution, steps, batch size, and workflow complexity matter. In the end, successfully generating the Frieren and Himmel images made me feel more confident using ComfyUI and understanding the Stable Diffusion workflow.
     </div>
   </div>
 
-  <!-- ------------------------------------------------>
   <div class="row hw12">
     <div class="col-md-12 twenty">
       <table>
@@ -184,7 +180,7 @@
           <td>Medium baseline - 完成芙莉蓮文生圖</td>
         </tr>
         <tr>
-          <td><input type="checkbox" class="flipswitch" id="myCheckbox3"></td>
+          <td><input type="checkbox" class="flipswitch" id="myCheckbox3" checked></td>
           <td id='m3'>2</td>
           <td>Strong baseline - 替換模型完成辛梅爾文生圖</td>
         </tr>
@@ -197,7 +193,6 @@
     </div>
   </div>
 
-  <!-- ------------------------------------------------>
   <div class="row hw12">
     <div class="col-md-12 twenty" style="background-color:#00AC48;">    
       <figure>
@@ -207,7 +202,6 @@
     </div>
   </div>
 
-  <!-- ------------------------------------------------>
   <div class="row hw12">
     <div class="col-md-12 twenty" style="background-color:#0080ff;">    
       <figure>
@@ -217,7 +211,6 @@
     </div>
   </div>
 
-  <!-- ------------------------------------------------>
   <div class="row hw12">
     <div class="col-md-12 twenty" style="background-color:#ff0000;"> 
       <figure>
@@ -236,17 +229,20 @@
     </div>
   </div>
 
-  <!-- ------------------------------------------------>
   <div class="row hw12 bottomrow">
     <div class="col-md-12 twenty" style="background-color:#7030a0;">    
       <figure>
         <figcaption>替換Checkpoint、LoRA完成辛梅爾文生圖</figcaption>
         <a href="https://civitai.com/models/820208/obsession-illustrious-xl">Checkpoint連結</a>
         <br>
-        <a href="https://civitai.com/models/1204563/ma1ma1helmes-or-shiiros-styles-or-niji?modelVersionId=1356500">LoRA連結1</a>
-        <br>
-        <a href="https://civitai.com/models/1201355/r754496-or-shiiros-styles-or-niji">LoRA連結2</a>
-        <p>此部分尚未完成。完成後將圖片命名為 ComfyUI_1.png，並將上方 Strong baseline 打勾。</p>
+        <a href="https://civitai.com/models/1204563/ma1ma1helmes-or-shiiros-styles-or-niji?modelVersionId=1356500">LoRA連結</a>
+
+        <p>Checkpoint：obsession_illustrious_xl.safetensors</p>
+        <p>LoRA：ma1ma1helmes_lora.safetensors</p>
+        <p>Positive: masterpiece, best quality, high score, great score, absurdres, frieren, himmel, sousou no frieren, 1girl, 1boy, silver hair, blue hair, elf ears, white mage robe, hero outfit, face to face, looking at another, fantasy forest background, soft lighting, emotional scene, anime style, detailed face, beautiful composition</p>
+        <p>Negative: nsfw, lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry, artist name</p>
+
+        <img src="ComfyUI_1.png" width="100%"/>
       </figure>
     </div>
   </div>
