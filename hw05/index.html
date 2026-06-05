@@ -21,13 +21,13 @@
 
   @font-face {
     font-family:'CircleFont';
-    src: url(https://circle472.github.io/ct2022s/hw04/CircleFont_v2.woff2); 
+    src: url(https://circle472.github.io/ct2022s/hw04/CircleFont_v2.woff2);
   }
 
   table {
       border-collapse: collapse;
       border: 2px solid white;
-      font-size:  16pt;
+      font-size: 16pt;
       margin-left: auto;
       margin-right: auto;
   }
@@ -38,8 +38,7 @@
       padding: 2px 8px;
   }
 
-  .flipswitch
-  {
+  .flipswitch {
       position: relative;
       background: white;
       width: 120px;
@@ -47,37 +46,34 @@
       -webkit-appearance: initial;
       border-radius: 3px;
       -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-      outline:none;
+      outline: none;
       font-size: 14px;
       font-family: Trebuchet, Arial, sans-serif;
       font-weight: bold;
-      cursor:pointer;
-      border:1px solid #ddd;
+      cursor: pointer;
+      border: 1px solid #ddd;
   }
-  .flipswitch:after
-  {
-      position:absolute;
-      top:5%;
-      display:block; 
-      line-height:16px;
-      width:45%;
-      height:90%;
-      background:#fff;
-      box-sizing:border-box;
-      text-align:center;
-      transition: all 0.3s ease-in 0s; 
-      color:rgba(159,53,58,1);
-      border:#888 1px solid;
-      border-radius:3px;
-  }
-  .flipswitch:after
-  {
-      left:2%;
+
+  .flipswitch:after {
+      position: absolute;
+      top: 5%;
+      display: block;
+      line-height: 16px;
+      width: 45%;
+      height: 90%;
+      background: #fff;
+      box-sizing: border-box;
+      text-align: center;
+      transition: all 0.3s ease-in 0s;
+      color: rgba(159,53,58,1);
+      border: #888 1px solid;
+      border-radius: 3px;
+      left: 2%;
       content: "未完成";
   }
-  .flipswitch:checked:after
-  {
-      left:53%;
+
+  .flipswitch:checked:after {
+      left: 53%;
       content: "完成";
   }
 
@@ -88,7 +84,7 @@
   }
 
   .container-fluid {
-    width:  90%;
+    width: 90%;
   }
 
   .hw12 {
@@ -105,17 +101,17 @@
   }
 
   .twenty a {
-    color:  yellow;
+    color: yellow;
   }
 
   .twenty a:hover {
     color: #f9eced;
-    font-size:  16pt;
+    font-size: 16pt;
   }
 
   .twenty:hover {
       box-shadow: 0 0 5px 3px #f9eced;
-      color: cyan; 
+      color: cyan;
       text-shadow: 0 0 6px #FFFFFF, 0 0 6px #000000;
   }
 
@@ -127,7 +123,24 @@
     margin-bottom: 36px;
   }
 
-  p {
+  figure {
+    margin: 0;
+  }
+
+  figcaption {
+    font-size: 22pt;
+    font-weight: bold;
+    margin-bottom: 12px;
+  }
+
+  img {
+    margin-top: 10px;
+    border: 2px solid #f9eced;
+  }
+
+  .prompt-text {
+    font-size: 14pt;
+    line-height: 1.5;
     word-break: break-word;
   }
 </style>
@@ -137,6 +150,7 @@
 
 <div class="container-fluid">
 
+  <!-- ---------------------------------------------- -->
   <div class="row hw12 toprow">
     <div class="col twenty"><a href="../hw00/index.html">00</a></div>
     <div class="col twenty"><a href="../hw01/index.html">01</a></div>
@@ -147,18 +161,32 @@
     <div class="col twenty"><a href="../hw06/index.html">06</a></div>
   </div>
 
+  <!-- ------------------------------------------------>
   <div class="row hw12">
     <div class="col-md-12 twenty">
       <h1>作業 05</h1>
     </div>
   </div>
 
+  <!-- ------------------------------------------------>
   <div class="row hw12">
     <div class="col-md-12 twenty">
-      Before doing this homework, I only had a basic idea of image generation tools, and I was more familiar with StableDiffusion-WebUI. This assignment helped me understand ComfyUI in a much more practical way. At first, the node-based interface looked confusing, but after working with it I realized that it clearly shows how Checkpoint, LoRA, positive prompt, negative prompt, KSampler, VAE Decode, and Save Image are connected. I also learned that image generation is not only about writing prompts, but also about choosing the correct model, adjusting parameters, and managing GPU limitations. During the process, I had issues with VRAM and the NVIDIA driver, so I understood why resolution, steps, batch size, and workflow complexity matter. In the end, successfully generating the Frieren and Himmel images made me feel more confident using ComfyUI and understanding the Stable Diffusion workflow.
+      <p>
+        Before working on this assignment, the main image-generation interface I knew was StableDiffusion-WebUI.
+        Through this homework, I learned how to use ComfyUI and understood why it is powerful: it provides a clear node-based workflow, flexible model loading, and better control over checkpoints, prompts, and LoRA connections.
+      </p>
+
+      <p>
+        For the simple baseline, I successfully built and ran ComfyUI. For the medium baseline, I generated an image using the selected checkpoint and prompt settings. For the strong baseline, I replaced/extended the model workflow by adding LoRA models and adjusting their strengths to influence the final visual style.
+      </p>
+
+      <p>
+        The most difficult part was understanding how the LoRA Loader connects to the model and CLIP nodes, and how the strength values affect the generated result. I also noticed that the prompt quality strongly affects the image: some details around the eyes, hair, and facial expression can still look unnatural if the prompt or parameters are not precise enough. Overall, this assignment helped me understand the practical workflow of AI image generation, especially how checkpoints and LoRA models can be combined in ComfyUI to control style and character appearance.
+      </p>
     </div>
   </div>
 
+  <!-- ------------------------------------------------>
   <div class="row hw12">
     <div class="col-md-12 twenty">
       <table>
@@ -171,78 +199,110 @@
         <tr>
           <td rowspan="4" id="myTotal"></td>
           <td><input type="checkbox" class="flipswitch" id="myCheckbox1" checked></td>
-          <td id='m1'>4</td>
-          <td>Simple baseline - 完成ComfyUI建置</td>
+          <td id="m1">4</td>
+          <td>Simple baseline - 完成 ComfyUI 建置</td>
         </tr>
         <tr>
           <td><input type="checkbox" class="flipswitch" id="myCheckbox2" checked></td>
-          <td id='m2'>4</td>
-          <td>Medium baseline - 完成芙莉蓮文生圖</td>
+          <td id="m2">4</td>
+          <td>Medium baseline - 完成 Checkpoint 文生圖</td>
         </tr>
         <tr>
           <td><input type="checkbox" class="flipswitch" id="myCheckbox3" checked></td>
-          <td id='m3'>2</td>
-          <td>Strong baseline - 替換模型完成辛梅爾文生圖</td>
+          <td id="m3">2</td>
+          <td>Strong baseline - 替換模型並加入 LoRA 完成文生圖</td>
         </tr>
         <tr>
           <td><input type="checkbox" class="flipswitch" id="myCheckbox4"></td>
-          <td id='m4'>-10</td>
-          <td>沒有寫100字心得</td>
+          <td id="m4">-10</td>
+          <td>沒有寫 100 字心得</td>
         </tr>
       </table>
     </div>
   </div>
 
+  <!-- ------------------------------------------------>
   <div class="row hw12">
-    <div class="col-md-12 twenty" style="background-color:#00AC48;">    
+    <div class="col-md-12 twenty" style="background-color:#00AC48;">
       <figure>
-        <figcaption>ComfyUI+工作流</figcaption>
-        <img src="ComfyUI_screenshot.png" width="100%"/>
+        <figcaption>Simple baseline：ComfyUI 工作流截圖</figcaption>
+        <img src="ComfyUI_screenshot.png" width="100%" alt="ComfyUI workflow screenshot"/>
       </figure>
     </div>
   </div>
 
+  <!-- ------------------------------------------------>
   <div class="row hw12">
-    <div class="col-md-12 twenty" style="background-color:#0080ff;">    
+    <div class="col-md-12 twenty" style="background-color:#ff0000;">
       <figure>
-        <figcaption>ComfyUI工作流細節</figcaption>
-        <img src="ComfyUI_readable_workflow.png" width="100%"/>
+        <figcaption>Medium baseline：使用 Checkpoint 完成芙莉蓮、辛梅爾文生圖</figcaption>
+
+        <p>
+          <a href="https://civitai.com/models/820208/obsession-illustrious-xl">Checkpoint 連結</a>
+        </p>
+
+        <p>Resolution: 512 * 512</p>
+
+        <p class="prompt-text">
+          <strong>Positive:</strong>
+          masterpiece, best quality, high score, great score, absurdres, pointy ears, frieren,
+          himmel \(sousou no frieren\), angry, facial, face to face, fighting, sousou no frieren,
+          long hair, 1boy, flower, head wreath, smile, petals, earrings, jewelry, shirt, elf,
+          blue flower, looking at another, outdoors, green eyes, upper body, long sleeves,
+          striped shirt, striped, sky, solo focus, closed mouth, white hair, falling petals
+        </p>
+
+        <p class="prompt-text">
+          <strong>Negative:</strong>
+          nsfw, lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit,
+          fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts,
+          signature, watermark, username, blurry, artist name
+        </p>
+
+        <img src="ComfyUI_0.png" width="100%" alt="Checkpoint generated image"/>
       </figure>
     </div>
   </div>
 
-  <div class="row hw12">
-    <div class="col-md-12 twenty" style="background-color:#ff0000;"> 
-      <figure>
-        <figcaption>完成芙莉蓮Checkpoint、LoRA文生圖</figcaption>
-        <a href="https://civitai.com/models/820208/obsession-illustrious-xl">Checkpoint連結</a>
-        <br>
-        <a href="https://civitai.com/models/1204563/ma1ma1helmes-or-shiiros-styles-or-niji?modelVersionId=1356500">LoRA連結</a>
-
-        <p>Checkpoint：obsession_illustrious_xl.safetensors</p>
-        <p>LoRA：ma1ma1helmes_lora.safetensors</p>
-        <p>Positive: frieren, sousou no frieren, silver hair, elf ears, green eyes, white mage robe, fantasy forest background, soft lighting, anime style, high quality, detailed face, beautiful composition</p>
-        <p>Negative: low quality, blurry, bad anatomy, extra fingers, missing fingers, distorted face, bad hands, watermark, text, logo</p>
-
-        <img src="ComfyUI_0.png" width="100%"/>
-      </figure>
-    </div>
-  </div>
-
+  <!-- ------------------------------------------------>
   <div class="row hw12 bottomrow">
-    <div class="col-md-12 twenty" style="background-color:#7030a0;">    
+    <div class="col-md-12 twenty" style="background-color:#7030a0;">
       <figure>
-        <figcaption>替換Checkpoint、LoRA完成辛梅爾文生圖</figcaption>
-        <a href="https://civitai.com/models/820208/obsession-illustrious-xl">Checkpoint連結</a>
-        <br>
-        <a href="https://civitai.com/models/1204563/ma1ma1helmes-or-shiiros-styles-or-niji?modelVersionId=1356500">LoRA連結</a>
+        <figcaption>Strong baseline：替換模型並加入雙 LoRA 完成芙莉蓮、辛梅爾文生圖</figcaption>
 
-        <p>Checkpoint：obsession_illustrious_xl.safetensors</p>
-        <p>LoRA：ma1ma1helmes_lora.safetensors</p>
-        <p>Positive: masterpiece, best quality, high score, great score, absurdres, frieren, himmel, sousou no frieren, 1girl, 1boy, silver hair, blue hair, elf ears, white mage robe, hero outfit, face to face, looking at another, fantasy forest background, soft lighting, emotional scene, anime style, detailed face, beautiful composition</p>
-        <p>Negative: nsfw, lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry, artist name</p>
+        <p>
+          <a href="https://civitai.com/models/820208/obsession-illustrious-xl">Checkpoint 連結</a>
+        </p>
 
-        <img src="ComfyUI_1.png" width="100%"/>
+        <p>
+          <a href="https://civitai.com/models/1204563/ma1ma1helmes-or-shiiros-styles-or-niji?modelVersionId=1356500">LoRA 連結 1</a>
+        </p>
+
+        <p>
+          <a href="https://civitai.com/models/1201355/r754496-or-shiiros-styles-or-niji">LoRA 連結 2</a>
+        </p>
+
+        <p>Resolution: 512 * 512</p>
+        <p>LoRA 1 Strength: 0.5</p>
+        <p>LoRA 2 Strength: 0.45</p>
+
+        <p class="prompt-text">
+          <strong>Positive:</strong>
+          masterpiece, best quality, high score, great score, absurdres, pointy ears, frieren,
+          himmel \(sousou no frieren\), angry, facial, face to face, fighting, sousou no frieren,
+          long hair, 1boy, flower, head wreath, smile, petals, earrings, jewelry, shirt, elf,
+          blue flower, looking at another, outdoors, green eyes, upper body, long sleeves,
+          striped shirt, striped, sky, solo focus, closed mouth, white hair, falling petals
+        </p>
+
+        <p class="prompt-text">
+          <strong>Negative:</strong>
+          nsfw, lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit,
+          fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts,
+          signature, watermark, username, blurry, artist name
+        </p>
+
+        <img src="ComfyUI_1.png" width="100%" alt="Checkpoint and LoRA generated image"/>
       </figure>
     </div>
   </div>
@@ -250,41 +310,33 @@
 </div>
 
 <script>
-  $(function() {
-    var f = function() {
-      $(this).next().text($(this).is(':checked') ? '做完' : '未做完');
-    };
-    $('input').change(f).trigger('change');
-  });
-
-  d3.select("#myCheckbox1").on("change",update);
-  d3.select("#myCheckbox2").on("change",update);
-  d3.select("#myCheckbox3").on("change",update);
-  d3.select("#myCheckbox4").on("change",update);
+  d3.select("#myCheckbox1").on("change", update);
+  d3.select("#myCheckbox2").on("change", update);
+  d3.select("#myCheckbox3").on("change", update);
+  d3.select("#myCheckbox4").on("change", update);
 
   update();
-  
-  function update(){
 
+  function update() {
     var score = 0;
 
-    if (d3.select("#myCheckbox1").property("checked")){
-      score += parseInt(d3.select('#m1').html());
+    if (d3.select("#myCheckbox1").property("checked")) {
+      score += parseInt(d3.select("#m1").html());
     }
 
-    if (d3.select("#myCheckbox2").property("checked")){
-      score += parseInt(d3.select('#m2').html());   
+    if (d3.select("#myCheckbox2").property("checked")) {
+      score += parseInt(d3.select("#m2").html());
     }
 
-    if (d3.select("#myCheckbox3").property("checked")){
-      score += parseInt(d3.select('#m3').html());   
+    if (d3.select("#myCheckbox3").property("checked")) {
+      score += parseInt(d3.select("#m3").html());
     }
 
-    if (d3.select("#myCheckbox4").property("checked")){
-      score += parseInt(d3.select('#m4').html());   
+    if (d3.select("#myCheckbox4").property("checked")) {
+      score += parseInt(d3.select("#m4").html());
     }
 
-    d3.select("#myTotal").html(score);    
+    d3.select("#myTotal").html(score);
   }
 </script>
 
