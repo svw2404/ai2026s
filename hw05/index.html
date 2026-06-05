@@ -1,15 +1,12 @@
 ﻿<!doctype html>
 <html lang="zh-Hant-TW">
 <head>
-<!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- D3, jquery -->
 <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" charset="utf-8"></script>
 
-<!-- Bootstrap CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -32,8 +29,7 @@
       margin-right: auto;
   }
 
-  td,
-  th {
+  td, th {
       border: 1px solid white;
       padding: 2px 8px;
   }
@@ -150,7 +146,6 @@
 
 <div class="container-fluid">
 
-  <!-- ---------------------------------------------- -->
   <div class="row hw12 toprow">
     <div class="col twenty"><a href="../hw00/index.html">00</a></div>
     <div class="col twenty"><a href="../hw01/index.html">01</a></div>
@@ -161,32 +156,30 @@
     <div class="col twenty"><a href="../hw06/index.html">06</a></div>
   </div>
 
-  <!-- ------------------------------------------------>
   <div class="row hw12">
     <div class="col-md-12 twenty">
       <h1>作業 05</h1>
     </div>
   </div>
 
-  <!-- ------------------------------------------------>
   <div class="row hw12">
     <div class="col-md-12 twenty">
       <p>
-        Before working on this assignment, the main image-generation interface I knew was StableDiffusion-WebUI.
-        Through this homework, I learned how to use ComfyUI and understood why it is powerful: it provides a clear node-based workflow, flexible model loading, and better control over checkpoints, prompts, and LoRA connections.
+        Before working on this assignment, the main image generation interface I knew was StableDiffusion-WebUI.
+        This homework helped me understand ComfyUI much better because its node-based workflow makes the full generation process visible.
+        I could clearly see how the checkpoint, CLIP text encode nodes, LoRA loaders, KSampler, VAE Decode, and preview/save image nodes connect together.
       </p>
 
       <p>
-        For the simple baseline, I successfully built and ran ComfyUI. For the medium baseline, I generated an image using the selected checkpoint and prompt settings. For the strong baseline, I replaced/extended the model workflow by adding LoRA models and adjusting their strengths to influence the final visual style.
+        For the simple baseline, I successfully installed and ran ComfyUI. For the medium baseline, I generated a Frieren image using a checkpoint together with a LoRA model. For the strong baseline, I extended the workflow by using the checkpoint with two LoRA models and generated a Himmel image. This made the difference between the model checkpoint and LoRA style control clearer to me.
       </p>
 
       <p>
-        The most difficult part was understanding how the LoRA Loader connects to the model and CLIP nodes, and how the strength values affect the generated result. I also noticed that the prompt quality strongly affects the image: some details around the eyes, hair, and facial expression can still look unnatural if the prompt or parameters are not precise enough. Overall, this assignment helped me understand the practical workflow of AI image generation, especially how checkpoints and LoRA models can be combined in ComfyUI to control style and character appearance.
+        The hardest part was understanding where the LoRA Loader should connect and how its model and CLIP outputs affect the rest of the workflow. I also learned that prompt quality is very important. Even when the model and LoRA are loaded correctly, details such as the eyes, hair, face shape, and character expression can still look unnatural if the prompt or generation parameters are not precise enough. Overall, this assignment helped me understand how ComfyUI can be used to control AI image generation in a more modular and flexible way.
       </p>
     </div>
   </div>
 
-  <!-- ------------------------------------------------>
   <div class="row hw12">
     <div class="col-md-12 twenty">
       <table>
@@ -205,12 +198,12 @@
         <tr>
           <td><input type="checkbox" class="flipswitch" id="myCheckbox2" checked></td>
           <td id="m2">4</td>
-          <td>Medium baseline - 完成 Checkpoint 文生圖</td>
+          <td>Medium baseline - 使用 Checkpoint + LoRA 完成芙莉蓮文生圖</td>
         </tr>
         <tr>
           <td><input type="checkbox" class="flipswitch" id="myCheckbox3" checked></td>
           <td id="m3">2</td>
-          <td>Strong baseline - 替換模型並加入 LoRA 完成文生圖</td>
+          <td>Strong baseline - 使用 Checkpoint + 雙 LoRA 完成辛梅爾文生圖</td>
         </tr>
         <tr>
           <td><input type="checkbox" class="flipswitch" id="myCheckbox4"></td>
@@ -221,7 +214,6 @@
     </div>
   </div>
 
-  <!-- ------------------------------------------------>
   <div class="row hw12">
     <div class="col-md-12 twenty" style="background-color:#00AC48;">
       <figure>
@@ -231,44 +223,56 @@
     </div>
   </div>
 
-  <!-- ------------------------------------------------>
+  <div class="row hw12">
+    <div class="col-md-12 twenty" style="background-color:#008080;">
+      <figure>
+        <figcaption>Readable workflow：Checkpoint、LoRA、KSampler、VAE Decode 節點</figcaption>
+        <img src="ComfyUI_readable_workflow.png" width="100%" alt="Readable ComfyUI workflow screenshot"/>
+      </figure>
+    </div>
+  </div>
+
   <div class="row hw12">
     <div class="col-md-12 twenty" style="background-color:#ff0000;">
       <figure>
-        <figcaption>Medium baseline：使用 Checkpoint 完成芙莉蓮、辛梅爾文生圖</figcaption>
+        <figcaption>Medium baseline：使用 Checkpoint + LoRA 完成芙莉蓮文生圖</figcaption>
 
         <p>
           <a href="https://civitai.com/models/820208/obsession-illustrious-xl">Checkpoint 連結</a>
         </p>
 
+        <p>
+          <a href="https://civitai.com/models/1204563/ma1ma1helmes-or-shiiros-styles-or-niji?modelVersionId=1356500">LoRA 連結</a>
+        </p>
+
         <p>Resolution: 512 * 512</p>
+        <p>LoRA Strength: 0.5</p>
 
         <p class="prompt-text">
           <strong>Positive:</strong>
-          masterpiece, best quality, high score, great score, absurdres, pointy ears, frieren,
-          himmel \(sousou no frieren\), angry, facial, face to face, fighting, sousou no frieren,
-          long hair, 1boy, flower, head wreath, smile, petals, earrings, jewelry, shirt, elf,
-          blue flower, looking at another, outdoors, green eyes, upper body, long sleeves,
-          striped shirt, striped, sky, solo focus, closed mouth, white hair, falling petals
+          masterpiece, best quality, high score, great score, absurdres,
+          frieren, sousou no frieren, 1girl, solo, silver hair, white hair,
+          elf ears, pointy ears, green eyes, white robe, fantasy forest,
+          detailed face, beautiful lighting, soft background
         </p>
 
         <p class="prompt-text">
           <strong>Negative:</strong>
-          nsfw, lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit,
-          fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts,
-          signature, watermark, username, blurry, artist name
+          nsfw, lowres, bad anatomy, bad hands, text, error, missing fingers,
+          extra digit, fewer digits, cropped, worst quality, low quality,
+          normal quality, jpeg artifacts, signature, watermark, username,
+          blurry, artist name
         </p>
 
-        <img src="ComfyUI_0.png" width="100%" alt="Checkpoint generated image"/>
+        <img src="ComfyUI_0.png" width="100%" alt="Frieren generated image"/>
       </figure>
     </div>
   </div>
 
-  <!-- ------------------------------------------------>
   <div class="row hw12 bottomrow">
     <div class="col-md-12 twenty" style="background-color:#7030a0;">
       <figure>
-        <figcaption>Strong baseline：替換模型並加入雙 LoRA 完成芙莉蓮、辛梅爾文生圖</figcaption>
+        <figcaption>Strong baseline：使用 Checkpoint + 雙 LoRA 完成辛梅爾文生圖</figcaption>
 
         <p>
           <a href="https://civitai.com/models/820208/obsession-illustrious-xl">Checkpoint 連結</a>
@@ -288,21 +292,21 @@
 
         <p class="prompt-text">
           <strong>Positive:</strong>
-          masterpiece, best quality, high score, great score, absurdres, pointy ears, frieren,
-          himmel \(sousou no frieren\), angry, facial, face to face, fighting, sousou no frieren,
-          long hair, 1boy, flower, head wreath, smile, petals, earrings, jewelry, shirt, elf,
-          blue flower, looking at another, outdoors, green eyes, upper body, long sleeves,
-          striped shirt, striped, sky, solo focus, closed mouth, white hair, falling petals
+          masterpiece, best quality, high score, great score, absurdres,
+          himmel, sousou no frieren, 1boy, solo, blue hair, blue eyes,
+          blue cloak, hero, fantasy forest, detailed face, soft lighting,
+          cinematic composition, upper body, beautiful background
         </p>
 
         <p class="prompt-text">
           <strong>Negative:</strong>
-          nsfw, lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit,
-          fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts,
-          signature, watermark, username, blurry, artist name
+          nsfw, lowres, bad anatomy, bad hands, text, error, missing fingers,
+          extra digit, fewer digits, cropped, worst quality, low quality,
+          normal quality, jpeg artifacts, signature, watermark, username,
+          blurry, artist name
         </p>
 
-        <img src="ComfyUI_1.png" width="100%" alt="Checkpoint and LoRA generated image"/>
+        <img src="ComfyUI_1.png" width="100%" alt="Himmel generated image"/>
       </figure>
     </div>
   </div>
