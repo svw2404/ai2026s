@@ -1,4 +1,5 @@
-﻿<!doctype html>
+﻿```html
+<!doctype html>
 <html lang="zh-Hant-TW">
 <head>
 <meta charset="utf-8">
@@ -171,7 +172,7 @@
       </p>
 
       <p>
-        For the simple baseline, I successfully installed and ran ComfyUI. For the medium baseline, I generated a Frieren image using a checkpoint together with a LoRA model. For the strong baseline, I extended the workflow by using the checkpoint with two LoRA models and generated a Himmel image. This made the difference between the model checkpoint and LoRA style control clearer to me.
+        For the simple baseline, I successfully installed and ran ComfyUI. For the medium baseline, I generated a Frieren and Himmel image using only the Obsession Illustrious XL checkpoint. For the strong baseline, I extended the workflow by using the same checkpoint together with two LoRA models. This made the difference between the base checkpoint and LoRA style control clearer to me.
       </p>
 
       <p>
@@ -198,17 +199,17 @@
         <tr>
           <td><input type="checkbox" class="flipswitch" id="myCheckbox2" checked></td>
           <td id="m2">4</td>
-          <td>Medium baseline - 使用 Checkpoint + LoRA 完成芙莉蓮文生圖</td>
+          <td>Medium baseline - 完成芙莉蓮、欣梅爾 Checkpoint 文生圖</td>
         </tr>
         <tr>
           <td><input type="checkbox" class="flipswitch" id="myCheckbox3" checked></td>
           <td id="m3">2</td>
-          <td>Strong baseline - 使用 Checkpoint + 雙 LoRA 完成辛梅爾文生圖</td>
+          <td>Strong baseline - 加上雙 LoRA 完成芙莉蓮、欣梅爾文生圖</td>
         </tr>
         <tr>
           <td><input type="checkbox" class="flipswitch" id="myCheckbox4"></td>
           <td id="m4">-10</td>
-          <td>沒有寫 100 字心得</td>
+          <td>沒有寫100字心得</td>
         </tr>
       </table>
     </div>
@@ -217,8 +218,8 @@
   <div class="row hw12">
     <div class="col-md-12 twenty" style="background-color:#00AC48;">
       <figure>
-        <figcaption>Simple baseline：ComfyUI 工作流截圖</figcaption>
-        <img src="ComfyUI_screenshot.png" width="100%" alt="ComfyUI workflow screenshot"/>
+        <figcaption>Simple baseline：ComfyUI 啟動畫面截圖</figcaption>
+        <img src="ComfyUI_screenshot.png" width="100%" alt="ComfyUI startup screenshot"/>
       </figure>
     </div>
   </div>
@@ -235,25 +236,20 @@
   <div class="row hw12">
     <div class="col-md-12 twenty" style="background-color:#ff0000;">
       <figure>
-        <figcaption>Medium baseline：使用 Checkpoint + LoRA 完成芙莉蓮文生圖</figcaption>
+        <figcaption>Medium baseline：完成芙莉蓮、欣梅爾 Checkpoint 文生圖</figcaption>
 
         <p>
           <a href="https://civitai.com/models/820208/obsession-illustrious-xl">Checkpoint 連結</a>
         </p>
 
-        <p>
-          <a href="https://civitai.com/models/1204563/ma1ma1helmes-or-shiiros-styles-or-niji?modelVersionId=1356500">LoRA 連結</a>
-        </p>
-
-        <p>Resolution: 1024 * 1024</p>
-        <p>LoRA Strength: 0.5</p>
+        <p>Checkpoint: obsession_illustrious_xl.safetensors</p>
+        <p>Resolution: 1024 × 1280</p>
 
         <p class="prompt-text">
           <strong>Positive:</strong>
-          masterpiece, best quality, high score, great score, absurdres,
-          frieren, sousou no frieren, 1girl, solo, silver hair, white hair,
-          elf ears, pointy ears, green eyes, white robe, fantasy forest,
-          detailed face, beautiful lighting, soft background
+          very awa, anime screencap, masterpiece, best quality, 1boy, 1girl,
+          frieren, himmel (sousou no frieren), outdoors, upper body, eye contact, light blue hair,
+          cape, capelet, earrings, dappled sunlight, day, hand on another's head, kesyeru, sousou no frieren
         </p>
 
         <p class="prompt-text">
@@ -264,7 +260,7 @@
           blurry, artist name
         </p>
 
-        <img src="ComfyUI_0.png" width="100%" alt="Frieren generated image"/>
+        <img src="ComfyUI_0.png" width="100%" alt="Frieren and Himmel generated image"/>
       </figure>
     </div>
   </div>
@@ -272,7 +268,7 @@
   <div class="row hw12 bottomrow">
     <div class="col-md-12 twenty" style="background-color:#7030a0;">
       <figure>
-        <figcaption>Strong baseline：使用 Checkpoint + 雙 LoRA 完成辛梅爾文生圖</figcaption>
+        <figcaption>Strong baseline：Checkpoint + 雙 LoRA 完成芙莉蓮、欣梅爾文生圖</figcaption>
 
         <p>
           <a href="https://civitai.com/models/820208/obsession-illustrious-xl">Checkpoint 連結</a>
@@ -286,16 +282,16 @@
           <a href="https://civitai.com/models/1201355/r754496-or-shiiros-styles-or-niji">LoRA 連結 2</a>
         </p>
 
-        <p>Resolution: 512 * 512</p>
-        <p>LoRA 1 Strength: 0.5</p>
-        <p>LoRA 2 Strength: 0.45</p>
+        <p>Checkpoint: obsession_illustrious_xl.safetensors</p>
+        <p>LoRA 1: ma1ma1helmes_lora.safetensors, trigger word: r17329_illu, strength: 0.5</p>
+        <p>LoRA 2: r754496_lora.safetensors, trigger word: xxx667_illu, strength: 0.45</p>
+        <p>Resolution: 1024 × 1280</p>
 
         <p class="prompt-text">
           <strong>Positive:</strong>
-          masterpiece, best quality, high score, great score, absurdres,
-          himmel, sousou no frieren, 1boy, solo, blue hair, blue eyes,
-          blue cloak, hero, fantasy forest, detailed face, soft lighting,
-          cinematic composition, upper body, beautiful background
+          r17329_illu, xxx667_illu, very awa, anime screencap, masterpiece, best quality, 1boy, 1girl,
+          frieren, himmel (sousou no frieren), outdoors, upper body, eye contact, light blue hair,
+          cape, capelet, earrings, dappled sunlight, day, hand on another's head, kesyeru, sousou no frieren
         </p>
 
         <p class="prompt-text">
@@ -306,7 +302,8 @@
           blurry, artist name
         </p>
 
-        <img src="ComfyUI_1.png" width="100%" alt="Himmel generated image"/>
+        <img src="ComfyUI_1.png" width="100%" alt="Frieren and Himmel generated image with LoRA"/>
+
         <p>Strong baseline workflow screenshot：Checkpoint + 雙 LoRA</p>
         <img src="ComfyUI_strong_workflow.png" width="100%" alt="Strong baseline ComfyUI workflow with two LoRAs"/>
       </figure>
@@ -348,5 +345,4 @@
 
 </body>
 </html>
-
-
+```
