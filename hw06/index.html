@@ -14,8 +14,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
 
 <title>作業六</title>
-<!-- https://alexlenail.me/NN-SVG/about.html -->
 <link rel="icon" href="../hw00/favicon.svg"/>
+
 <style type="text/css">
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100&display=swap');
 
@@ -26,8 +26,8 @@
 
   table {
       border-collapse: collapse;
-      border: 2px solid white; /* rgba(217,140,144,1) */
-      font-size:  16pt;
+      border: 2px solid white;
+      font-size: 16pt;
       margin-left: auto;
       margin-right: auto;
   }
@@ -38,8 +38,7 @@
       padding: 2px 8px;
   }
 
-  .flipswitch
-  {
+  .flipswitch {
       position: relative;
       background: white;
       width: 120px;
@@ -54,8 +53,8 @@
       cursor:pointer;
       border:1px solid #ddd;
   }
-  .flipswitch:after
-  {
+
+  .flipswitch:after {
       position:absolute;
       top:5%;
       display:block; 
@@ -70,25 +69,25 @@
       border:#888 1px solid;
       border-radius:3px;
   }
-  .flipswitch:after
-  {
+
+  .flipswitch:after {
       left:2%;
       content: "未完成";
   }
-  .flipswitch:checked:after
-  {
+
+  .flipswitch:checked:after {
       left:53%;
       content: "完成";
   }
 
   body {
-    background-color: rgb(106, 76, 156); /* #6A4C9C */
+    background-color: rgb(106, 76, 156);
     color: rgb(106, 76, 156);
     font-family: 'CircleFont', 'Noto Sans JP', serif;
   }
 
   .container-fluid {
-    width:  90%;
+    width: 90%;
   }
 
   .hw12 {
@@ -105,12 +104,12 @@
   }
 
   .twenty a {
-    color:  yellow;
+    color: yellow;
   }
 
   .twenty a:hover {
     color: #f9eced;
-    font-size:  16pt;
+    font-size: 16pt;
   }
 
   .twenty:hover {
@@ -126,8 +125,20 @@
   .bottomrow {
     margin-bottom: 36px;
   }
+
+  .prompt-text {
+    font-size: 13pt;
+    text-align: left;
+    word-break: break-word;
+  }
+
+  figcaption {
+    font-size: 20pt;
+    margin-bottom: 10px;
+  }
 </style>
 </head>
+
 <body>
 
 <div class="container-fluid">
@@ -141,10 +152,6 @@
     <div class="col twenty"><a href="../hw04/index.html">04</a></div>
     <div class="col twenty"><a href="../hw05/index.html">05</a></div>
     <div class="col twenty"><a href="../hw06/index.html">06</a></div>
-    <div class="col twenty"><a href="../hw06/index.html">07</a></div>
-    <div class="col twenty"><a href="../hw06/index.html">08</a></div>
-    <div class="col twenty"><a href="../hw06/index.html">09</a></div>
-    <div class="col twenty"><a href="../hw06/index.html">10</a></div>
   </div>
 
   <!-- ------------------------------------------------>
@@ -157,7 +164,7 @@
   <!-- ------------------------------------------------>
   <div class="row hw12">
     <div class="col-md-12 twenty">
-      心得報告 105 字。心得報告 105 字。心得報告 105 字。心得報告 105 字。心得報告 105 字。心得報告 105 字。心得報告 105 字。心得報告 105 字。心得報告 105 字。心得報告 105 字。心得報告 105 字。心得報告 105 字。心得報告 105 字。心得報告 105 字。心得報告 105 字。
+      This homework helped me understand how text-to-video generation works as a complete workflow instead of a single automatic step. I used ComfyUI to connect the checkpoint, LoRA, VAE, AnimateDiff motion model, prompt schedule, sampler, decoder, and video combine nodes. The hardest part was not only writing prompts, but also debugging missing workflows, wrong node parameters, and compatibility issues between ComfyUI and custom nodes. I learned that video generation requires more control than image generation because the character should remain consistent while the scene changes over time. I also realized that frame count, seed, motion model, negative prompt, and output format all affect the final animation. Overall, this assignment gave me practical experience with building and troubleshooting an AI video generation pipeline.
     </div>
   </div>
 
@@ -173,43 +180,111 @@
         </tr>
         <tr>
           <td rowspan="4" id="myTotal"></td>
-          <td><input type="checkbox" class="flipswitch" id="myCheckbox1"></td>
+          <td><input type="checkbox" class="flipswitch" id="myCheckbox1" checked></td>
           <td id='m1'>4</td>
-          <td>Simple baseline - 描述</td>
+          <td>Simple baseline - ComfyUI 環境設定完成</td>
         </tr>
         <tr>
-          <td><input type="checkbox" class="flipswitch" id="myCheckbox2"></td>
+          <td><input type="checkbox" class="flipswitch" id="myCheckbox2" checked></td>
           <td id='m2'>4</td>
-          <td>Medium baseline - 描述</td>
+          <td>Medium baseline - 生成角色的圖片</td>
         </tr>
         <tr>
-          <td><input type="checkbox" class="flipswitch" id="myCheckbox3"></td>
+          <td><input type="checkbox" class="flipswitch" id="myCheckbox3" checked></td>
           <td id='m3'>2</td>
-          <td>Strong baseline - 描述</td>
+          <td>Strong baseline - 生成完整角色動畫</td>
         </tr>
         <tr>
-          <td><input type="checkbox" class="flipswitch" id="myCheckbox4" checked></td>
+          <td><input type="checkbox" class="flipswitch" id="myCheckbox4"></td>
           <td id='m4'>-10</td>
           <td>沒有寫100字心得</td>
         </tr>
-
       </table>
     </div>
   </div>
 
   <!-- ------------------------------------------------>
   <div class="row hw12 bottomrow">
-    <div class="col-md-12 twenty">
-      <video id="video1" style="width:100%;max-width:100%;" controls="">
-        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-      </video>
+    <div class="col-md-12 twenty" style="background-color:#00AC48;">
+      <figcaption>ComfyUI 環境設定完成</figcaption>
+      CheckPoint: dreamshaper_8.safetensors<br>
+      LoRA: mix-a4-v2.safetensors<br>
+      VAE: vae-ft-mse-840000-ema-pruned.safetensors<br>
+      Motion Model: motionModel_v01.ckpt<br>
+      <img src="workflow_6.png" width="100%"><br>
+    </div>
+  </div>
+  
+  <!-- ------------------------------------------------>
+  <div class="row hw12 bottomrow">
+    <div class="col-md-4 twenty" style="background-color:#ff0000;">
+      <figcaption>生成角色的圖片 - 1</figcaption>
+      <img src="hw06_character_image_1.png" width="100%"><br>
+    </div>
+    <div class="col-md-4 twenty" style="background-color:#ff0000;">
+      <figcaption>生成角色的圖片 - 2</figcaption>
+      <img src="hw06_character_image_2.png" width="100%"><br>
+    </div>
+    <div class="col-md-4 twenty" style="background-color:#ff0000;">
+      <figcaption>生成角色的圖片 - 3</figcaption>
+      <img src="hw06_character_image_3.png" width="100%"><br>
     </div>
   </div>
 
   <!-- ------------------------------------------------>
+  <div class="row hw12 bottomrow">
 
-  <!-- ------------------------------------------------>
+    <div class="col-md-4 twenty" style="background-color:#7030a0;">
+      <figcaption>生成完整角色動畫 - 1</figcaption>
+      <img src="hw06_animation_1.gif" width="100%"><br>
+      <div class="prompt-text">
+        使用提示詞:<br>
+        "0" : "1boy, young male university student, black hair, navy jacket, backpack, walking through Taipei campus, soft morning light",<br>
+        "8" : "1boy, young male university student, black hair, navy jacket, backpack, walking through Taipei campus, gentle wind, trees in background",<br>
+        "16" : "1boy, young male university student, black hair, navy jacket, backpack, walking near university buildings, bright afternoon light",<br>
+        "24" : "1boy, young male university student, black hair, navy jacket, backpack, walking near a Taipei street, warm sunset lighting",<br>
+        "32" : "1boy, young male university student, black hair, navy jacket, backpack, walking through Taipei night market, neon signs",<br>
+        "40" : "1boy, young male university student, black hair, navy jacket, backpack, standing under glowing lanterns in Taipei night market, cinematic lighting"<br><br>
+        使用負面提示詞:<br>
+        (bad quality, worst quality:1.2), blurry, low resolution, distorted hands, extra fingers, extra arms, bad anatomy
+      </div>
+    </div>
 
+    <div class="col-md-4 twenty" style="background-color:#7030a0;">
+      <figcaption>生成完整角色動畫 - 2</figcaption>
+      <img src="hw06_animation_2.gif" width="100%"><br>
+      <div class="prompt-text">
+        使用提示詞:<br>
+        "0" : "1boy, young male university student, black hair, navy jacket, backpack, standing at a Taipei metro station, soft morning light",<br>
+        "8" : "1boy, young male university student, black hair, navy jacket, backpack, walking inside a Taipei metro station, clean modern background",<br>
+        "16" : "1boy, young male university student, black hair, navy jacket, backpack, entering a metro train, cinematic composition",<br>
+        "24" : "1boy, young male university student, black hair, navy jacket, backpack, sitting inside a Taipei metro train, city lights outside window",<br>
+        "32" : "1boy, young male university student, black hair, navy jacket, backpack, exiting the metro station near university campus, afternoon light",<br>
+        "40" : "1boy, young male university student, black hair, navy jacket, backpack, arriving at Taipei university campus, peaceful atmosphere"<br><br>
+        使用負面提示詞:<br>
+        (bad quality, worst quality:1.2), blurry, low resolution, distorted hands, extra fingers, extra arms, bad anatomy
+      </div>
+    </div>
+
+    <div class="col-md-4 twenty" style="background-color:#7030a0;">
+      <figcaption>生成完整角色動畫 - 3</figcaption>
+      <img src="hw06_animation_3.gif" width="100%"><br>
+      <div class="prompt-text">
+        使用提示詞:<br>
+        "0" : "1boy, young male university student, black hair, navy jacket, backpack, sitting in a university library, studying with laptop, soft indoor light",<br>
+        "8" : "1boy, young male university student, black hair, navy jacket, backpack, reading notes in a university library, quiet atmosphere",<br>
+        "16" : "1boy, young male university student, black hair, navy jacket, backpack, walking through a computer lab, monitors glowing",<br>
+        "24" : "1boy, young male university student, black hair, navy jacket, backpack, working in a computer lab, blue screen light, focused expression",<br>
+        "32" : "1boy, young male university student, black hair, navy jacket, backpack, walking outside the university building at sunset",<br>
+        "40" : "1boy, young male university student, black hair, navy jacket, backpack, standing on campus at night, city lights, cinematic mood"<br><br>
+        使用負面提示詞:<br>
+        (bad quality, worst quality:1.2), blurry, low resolution, distorted hands, extra fingers, extra arms, bad anatomy
+      </div>
+    </div>
+
+  </div>
+
+</div>
 
 <script>
   $(function() {
@@ -223,9 +298,6 @@
   d3.select("#myCheckbox2").on("change",update);
   d3.select("#myCheckbox3").on("change",update);
   d3.select("#myCheckbox4").on("change",update);
-  // d3.select("#myCheckbox5").on("change",update);
-  // d3.select("#myCheckbox6").on("change",update);
-  // d3.select("#myCheckbox7").on("change",update);
 
   update();
   
@@ -248,7 +320,6 @@
     if (d3.select("#myCheckbox4").property("checked")){
       score += parseInt(d3.select('#m4').html());   
     }
-
 
     d3.select("#myTotal").html(score);    
   }
